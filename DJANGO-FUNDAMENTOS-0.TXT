@@ -1,4 +1,5 @@
 NOTAS RÁPIDAS SOBRE Django
+fuente: www.w3schools.com
 
 Entorno_Virtual: C:\Users\mrojas\Documents\myworld
 Projecto: my_tennis_club
