@@ -1,0 +1,1032 @@
+NOTAS RÁPIDAS SOBRE Django
+
+Entorno_Virtual: C:\Users\mrojas\Documents\myworld
+Projecto: my_tennis_club
+App: members
+
+ejemplos: https://docs.djangoproject.com/en/4.1/intro/tutorial01/
+
+
+# ----------------------------------------------------------- #
+
+C:\Users\mrojas\Documents>python --version
+Python 3.10.8
+
+C:\Users\mrojas\Documents>pip --version
+pip 22.2.2 from C:\Users\mrojas\AppData\Local\Programs\Python\Python310\lib\site-packages\pip (python 3.10)
+
+C:\Users\mrojas\Documents>
+
+>py -m venv myworld         # creo desde el SO el entorno virtual
+
+# activo el entorno virutal SIEMPRE antes de trabajar
+C:\Users\mrojas\Documents\myworld\Scripts>activate.bat
+
+(myworld) C:\Users\mrojas\Documents\myworld\Scripts>    # en wondows queda así
+
+
+# instalo Django en el entorno virtual (voy a la carpeta de mi entorno virtual)
+
+> py -m pip install Django          #uso el manejador de paquetes pip 
+                                    # viene con python 
+(myworld) C:\Users\mrojas\Documents\myworld>py -m pip install Django
+Collecting Django
+  Using cached Django-4.1.7-py3-none-any.whl (8.1 MB)
+Collecting tzdata
+  Downloading tzdata-2023.2-py2.py3-none-any.whl (342 kB)
+     ---------------------------------------- 342.1/342.1 kB 3.5 MB/s eta 0:00:00
+Collecting asgiref<4,>=3.5.2
+  Using cached asgiref-3.6.0-py3-none-any.whl (23 kB)
+Collecting sqlparse>=0.2.2
+  Using cached sqlparse-0.4.3-py3-none-any.whl (42 kB)
+Installing collected packages: tzdata, sqlparse, asgiref, Django
+Successfully installed Django-4.1.7 asgiref-3.6.0 sqlparse-0.4.3 tzdata-2023.2
+
+[notice] A new release of pip available: 22.2.2 -> 23.0.1
+[notice] To update, run: python.exe -m pip install --upgrade pip
+
+(myworld) C:\Users\mrojas\Documents\myworld>
+
+# ¿Qué versión se instaló?
+>django-admin --version
+(myworld) C:\Users\mrojas\Documents\myworld>django-admin --version
+4.1.7
+
+# Creamos un proyecto Django, dentro el entorno virutal, el que debe estar activado
+>django-admin startproject my_tennis_club
+
+(myworld) C:\Users\mrojas\Documents\myworld>django-admin startproject my_tennis_club
+
+(myworld) C:\Users\mrojas\Documents\myworld>dir
+ El volumen de la unidad C no tiene etiqueta.
+ El número de serie del volumen es: 0AE8-B2EF
+
+ Directorio de C:\Users\mrojas\Documents\myworld
+
+28/03/2023  10:11    <DIR>          .
+28/03/2023  10:11    <DIR>          ..
+28/03/2023  09:50    <DIR>          Include
+28/03/2023  09:50    <DIR>          Lib
+28/03/2023  10:11    <DIR>          my_tennis_club
+28/03/2023  09:50               120 pyvenv.cfg
+28/03/2023  09:56    <DIR>          Scripts
+               1 archivos            120 bytes
+               6 dirs  425.722.916.864 bytes libres
+
+(myworld) C:\Users\mrojas\Documents\myworld>
+
+# ¿Qué contiene el directorio del proyecto ?
+ Directorio de C:\Users\mrojas\Documents\myworld\my_tennis_club
+
+28/03/2023  10:11    <DIR>          .
+28/03/2023  10:11    <DIR>          ..
+28/03/2023  10:11               692 manage.py
+28/03/2023  10:11    <DIR>          my_tennis_club
+               1 archivos            692 bytes
+               3 dirs  425.720.365.056 bytes libres
+
+(myworld) C:\Users\mrojas\Documents\myworld\my_tennis_club>
+
+# Ejecutamos el proyecto my_tennis_club 
+# vamos a la carpta del proycto y ejecutamos:
+(myworld) C:\Users\mrojas\Documents\myworld\my_tennis_club>py manage.py runserver
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+March 28, 2023 - 10:14:23
+Django version 4.1.7, using settings 'my_tennis_club.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+
+# El projecto está corriendo, accedemos mediante el browser
+# http://127.0.0.1:8000
+
+# Hasta aquí creamos: entorno virtual - proyecto 
+# Ahora vamos a crear una app 
+
+# IMPORTANTE: PARA QUE VSCODE ENCUENTRE EL COMPILADOR PYHTON DEBEMOS INDICARLE EL QUE ESTÁ 
+# DENTRO DE NUESTRO ENTORNO VIRUTAL PARA LO CUAL: 
+'''
+1.- Vamos a VER - PALETA DE COMANDOS   (CTRL-MAYUSCULAS-P)
+2.- Buscamos python: Seleccionar intérprete
+3.- Buscamos/seleccionamos el que está en la carpteta Scripts de nuestor proyecto, Python.exe
+'''
+
+# Una app es una aplicación web con un propósito específico
+# por ejemplo logearse.
+
+# Vamos a crear una app que permita listar y registrar socios
+
+(myworld) C:\Users\mrojas\Documents\myworld\my_tennis_club> py manage.py startapp members
+
+(myworld) C:\Users\mrojas\Documents\myworld\my_tennis_club>tree /F
+Listado de rutas de carpetas
+El número de serie del volumen es 0AE8-B2EF
+C:.
+│   db.sqlite3
+│   manage.py
+│
+├───members
+│   │   admin.py
+│   │   apps.py
+│   │   models.py
+│   │   tests.py
+│   │   views.py
+│   │   __init__.py
+│   │
+│   └───migrations
+│           __init__.py
+│
+└───my_tennis_club
+    │   asgi.py
+    │   settings.py
+    │   urls.py
+    │   wsgi.py
+    │   __init__.py
+    │
+    └───__pycache__
+            settings.cpython-310.pyc
+            urls.cpython-310.pyc
+            wsgi.cpython-310.pyc
+            __init__.cpython-310.pyc
+
+
+# Modificamos el archivo views.py de la app
+# para que quede así:
+from django.shortcuts import render
+from django.http import HttpResponse
+
+# Create your views here.
+def members(request):
+    return HttpResponse("Hola mundo!!")
+
+Una vista (view) en Django es una función que recibe como
+parámetro un http request y devuelve un http HttpResponse
+como vemos en la vista members
+
+En nombre de la vista NO tiene por qué coincidir con el de la 
+app, pero en este conexto lo dejamos así.
+
+El precedente es un ejemplo simple de como enviar un response al 
+navegador.
+
+# ¿Cómo ejecutamos la vista?
+lo hacemos meditante una url 
+
+# Creando la url de la view members de la app members
+En la misma carpeta de la view de la app creamos el archivo 
+urls.py y definimos nuestra primera url 
+
+from django.urls import path
+from . import views 
+
+urlpatterns = [
+    path('members/' views.memebers, name='members'), 
+]
+
+El url que acabmos de crear es para la app members, debemos 
+también incluir cambios en el path "general" que se encuentra
+en la carpeta my_tennis_club, que está a la altura de members 
+
+
+my_tennis_club/my_tennis_club/urls.py:
+
+from django.contrib import admin
+from django.urls import include, path   #agregamos la función include
+
+urlpatterns = [
+    path('', include('members.urls')), #esto rutea a los que pidan 127.0.0.1:8000
+    path('admin/', admin.site.urls),
+]
+
+Ahora corremos la aplicación nuevamente, vamos a la carpeta del proyecto 
+y ejecutamos:
+> py manage.py runserver
+
+
+# Usando Templates
+# Vamos a crear la carpeta templates que contendrá los templates 
+Esto son archivo html por ejemplo que definen como se mostrarán los datos
+
+# Creamos el template 
+Dentro de la carpeta templates creamos el archivo myfirst.html, con el 
+siguiente contenido:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primer_template</title>
+</head>
+<body>
+    <h1>Hola Mundo</h1>
+    <p>Bienvenido al proyecto con Django</p>
+</body>
+</html>
+
+
+# Modificamos la Vista membres para que use el Templates
+
+# my_tennis_club/members/views.py
+from django.http import HttpResponse
+from django.template import loader      # importo la modulo  loader
+
+def members(request):
+    template = loader.get_template('myfirst.html')
+    return HttpResponse(template.render())
+
+
+
+# Debemos modificar además el archivo 
+# my_tennis_club/my_tennis_club/settings.py
+# Agregamos nuestra APP para que el proyecto la reconozca
+
+Buscamos en settings.py  la variable INSTALLED_APPS y agregamos
+la app memebers, quedando así:
+
+# Application definition
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'members'
+]
+
+# Para que el proyecto tome los cambios hechos debemos ejecutar:
+> py manage.py migrate
+
+(myworld) C:\Users\mrojas\Documents\myworld\my_tennis_club>py manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying sessions.0001_initial... OK
+
+
+  # Probamos los cambios hechos
+  1.- ejecutamos el servidor
+    > py manage.py runserver 
+
+  2.- En el navegador vamos a http://127.0.0.1:8000/members 
+      Deberíamos ver nuestro template myfirst.html 
+
+
+# Django models
+En django un modelo es una tabla en nuestra base de datos 
+En Django las estructuras de  datos se crean mediante "objetos"
+que corresponden a tablas en nuestra base de datos
+
+
+# Creando un Modelo (tabla)
+Vamos a nuestra APP members y abrimos el archivo models.py 
+Definimos la clase Member, sus atributos corresponderán a 
+las columnas de la tabla correpondiente
+
+# SQLite Database
+Cuando creamos un proyecto, en el directorio raíz del mismo 
+tenemos una bd sqlite  vacía, el archivo se llama db.sqlie3 
+Por defecto los pryecto Django usan esta base de datos.
+
+# MIGRATE crear realmente las tablas 
+Vamos al directorio root del proyecto y ejecutamos 
+
+> py manage.py makemigrations members
+
+Este es el primer paso para incorporar los modelos definidos 
+en la app members
+
+(myworld) C:\Users\mrojas\Documents\myworld\my_tennis_club>py manage.py makemigrations members
+No changes detected in app 'members'
+
+# ¿Qué realizó el comando makemigrations?
+creo un archivo que es el que realmente se utilizará para crear 
+las tablas en la base de datos.
+
+El archivo se llama 0001_initial.py, el prefijo numérico puede cambiar 
+
+my_tennis_club/members/migrations/0001_initial.py:
+
+# Generated by Django 4.1.2 on 2022-10-27 11:14
+
+from django.db import migrations, models
+
+
+class Migration(migrations.Migration):
+
+    initial = True
+
+    dependencies = [
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='Member',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('firstname', models.CharField(max_length=255)),
+                ('lastname', models.CharField(max_length=255)),
+            ],
+        ),
+    ]
+
+Como vemos Django inserta un "id" el cual es auto increment number, comenzando
+en 1 y de paso 1, este es el comportamiento por defaul, pero se puede cambiar, inclusive 
+crear nuestra propio id.
+
+El archivo se encuentra en el directrio my_tennis_club/members/migrations/0001_initial.py
+
+Como segundo paso debemos correr el comado migrate, el cual crea realmente las 
+tablas.
+
+> py manage.py migrate
+(myworld) C:\Users\mrojas\Documents\myworld\my_tennis_club>py manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, members, sessions
+Running migrations:
+  Applying members.0001_initial... OK
+
+¡ ya tenemos una tabla Members en la base de datos ¡
+
+# Veamos el SQL que se ejecuto 
+> py manage.py sqlmigrate members 0001
+
+(myworld) C:\Users\mrojas\Documents\myworld\my_tennis_club>py manage.py sqlmigrate members 0001
+BEGIN;
+--
+-- Create model Member
+--
+CREATE TABLE "members_member" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "firstname" varchar(255) NOT NULL, "lastname" varchar(255) NOT NULL);
+COMMIT;
+
+Como vemos por el nombre "members_member" ha creado una tabla para la app members  
+según el modelo Member, en el nombre de la  tabla lo pone en minúsculas.
+
+Ya podemos insertar datos en  la tabla members_member, que hasta aquí está vacía 
+
+Para ello vamos a usar el shell de pyton (podemos usar tambien el cliente idle)
+
+(myworld) C:\Users\mrojas\Documents\myworld\my_tennis_club>py manage.py shell
+Python 3.10.8 (tags/v3.10.8:aaaf517, Oct 11 2022, 16:50:30) [MSC v.1933 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from members.models import Member
+>>> Member.objects.all()
+<QuerySet []>
+
+Hemos abierto el shell de python, importado el modelo Member que pertenece a 
+la app members.models, para finalmente pedir a Member todos sus objetos.
+
+El resultado una lista vacía ya que la tabla members_member no tiene datos
+
+# Insertar datos en la tabla 
+
+>>> member = Member(firstname="juan", lastname="Perez")  
+>>> member.save()
+
+Guardamos en una variable una instancia de la clase Member, usando para 
+ello su constructor.
+
+Luego persistimos el objeto mediante el método save() 
+
+Si hacemos:
+>>> Member.objects.all()
+<QuerySet [<Member: Member object (1)>]>
+
+Nos dice que hay un QuerySet de objetos de la clase Member con un solo objeto 
+
+Si queremos verlo usamo el método values():
+>>> Member.objects.all().values()
+<QuerySet [{'id': 1, 'firstname': 'juan', 'lastname': 'Perez'}]> 
+
+Vemos que en la tabla aparece el id que agrego Django.
+
+# Agregar múltiples registros
+Para ello creamos cada objeto, lo guardamos en una lista y finalmente 
+recorremos la lista con un for dentro del cual se ejecuta el save() 
+
+>>> m1 = Member(firstname="funo", lastname="luno")
+>>> m2 = Member(firstname="fdos", lastname="ldos")
+>>> m3 = Member(firstname="ftres", lastname="ltres")
+>>> m4 = Member(firstname="fcuatro", lastname="lcuatro")
+>>> m5 = Member(firstname="fcinco", lastname="lcinco")
+
+>>> member_list = [m1, m2, m3, m4, m5]
+
+>>> for x in member_list:
+...     x.save()
+
+>>> Member.objects.all().values()
+<QuerySet [{'id': 1, 'firstname': 'juan', 'lastname': 'Perez'}, {'id': 2, 'firstname': 'funo', 'lastname': 'luno'}, {'id': 3, 'firstname': 'fdos', 'lastname': 'ldos'}, {'id': 4, 'firstname': 'ftres', 'lastname': 'ltres'}, {'id': 5, 'firstname': 'fcuatro', 'lastname': 'lcuatro'}, {'id': 6, 'firstname': 'fcinco', 'lastname': 'lcinco'}]>
+>>> 
+
+
+# UPDATE modificando datos 
+Para modificar datos que existen en la BD:
+
+1.- "Traemos" el o los registros a modificar
+>>> from members.models import Member 
+>>> x = Member.objects.all()[0]
+
+En la variable x representa el member con indice 0, 
+veamos que es el correcto.
+
+>>> x.firstname = "juan"
+>>> x.save()
+>>> x.lastname = "perez"
+>>> x.save()
+
+
+
+Veamos todo de nuevo:
+>>> Member.objects.all().values()
+
+Si quisiera eliminar al member con índice 0, lo a"traigo" y lo elimino
+>>>from members.models import Member 
+>>>x = Member.objects.all()[0]
+>>>x.nombre 
+juan
+>>>x.delete()
+(1, {'members.Member': 1})
+La repuesta nos dice cuantos ítems han sido eliminados y de que modelo(tabla) 
+
+
+# Modificando el modelo existente
+Abrimos models.py y realizamos los cambios
+
+from django.db import models
+
+# Create your models here.
+
+class Member(models.Model):
+    nombre  = models.CharField(max_length=255)
+    apellido  = models.CharField(max_length=255)
+    telefono = models.IntegerField()
+    fecha_ingreso = models.DateField() 
+
+
+
+Ahora hago el makemigratios y el migrate luego 
+
+>>> py manage.py makemigrations members
+Nos aparece los siguiente:
+
+(myworld) C:\Users\mrojas\Documents\myworld\my_tennis_club>py manage.py makemigrations members
+It is impossible to add a non-nullable field 'fecha_ingreso' to member without specifying a default. This is because the database needs something to populate existing rows.
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+ 2) Quit and manually define a default value in models.py.
+Select an option:
+
+Por razones didácticas elegimos la opcion 2 y le asignamos manualmente 
+que adminta valores nulos, ya que al crear estas columnas en las filas existentes 
+no tendrán un valor asignado
+
+
+from django.db import models
+
+# Create your models here.
+
+class Member(models.Model):
+    nombre  = models.CharField(max_length=255)
+    apellido  = models.CharField(max_length=255)
+    telefono = models.IntegerField(null=True)
+    fecha_ingreso = models.DateField(null=True) 
+
+y volvemos a correr el makemigrations y el migrate
+
+(myworld) C:\Users\mrojas\Documents\myworld\my_tennis_club>py manage.py makemigrations members
+Migrations for 'members':
+  members\migrations\0003_member_fecha_ingreso_member_telefono.py
+    - Add field fecha_ingreso to member
+    - Add field telefono to member
+
+
+(myworld) C:\Users\mrojas\Documents\myworld\my_tennis_club>py manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, members, sessions
+Running migrations:
+  Applying members.0003_member_fecha_ingreso_member_telefono... OK 
+
+Para probar lo hecho vamos a insertar una fila 
+
+>>> from members.models import Member 
+>>> x = Member.object.all()[0]  # traigo la fila con indice 0
+>>> x.telefono = 11115555
+>>> x fecha_ingreso = '2023-04-03'
+>>> x.save()
+
+listo !!!!!
+
+# Modificar Registros - Update records #
+En nuestro caso nos aseguramos de tener activado el entorno virtual
+ y comenzamos a trabajar. 
+
+>>> from members.models import Member 
+>>> x = Member.objects.all()[4]
+
+De del archivo models.py de la app members importo el modelo Member.
+En x "guardo" el objeto (o elemento) con índice 4 de la colección 
+en este caso un lista de los objetos instancias de Member.
+
+>>> x.nombre 
+'lcinco'    # recordemos que el índice es base 0
+
+Vamos a cambiarle el nombre de lcinco a nro_cinco
+>>>x.nombre = 'nro_cinco'
+
+>>>x.save()     # no olvidemos de salvar los cambios
+
+Para verificar que los cambios se persistienron (en la bd)
+
+>>>y = Member.objects.all()[4]
+>>>y.nombre
+'nro_cinco'
+
+Todo fue Bien, tabmien pudimos haber hecho 
+>>>Member.objects.all().values()
+<QuerySet [{'id': 2, 'nombre': 'luno', 'apellido': 'funo', 
+'telefono': 12345612, 'fecha_ingreso': datetime.date(2023, 4, 4)}, 
+{'id': 3, 'nombre': 'ldos', 'apellido': 'fdos', 'telefono': None, 'fecha_ingreso': None}, 
+{'id': 4, 'nombre': 'ltres', 'apellido': 'ftres', 'telefono': None, 'fecha_ingreso': None}, 
+{'id': 5, 'nombre': 'lcuatro', 'apellido': 'fcuatro', 'telefono': None, 'fecha_ingreso': None}, 
+{'id': 6, 'nombre': 'nro_cinco', 'apellido': 'fcinco', 'telefono': None, 'fecha_ingreso': None}]>
+
+# ELIMIANR UNA FILA - DELETE ROW # 
+
+Primero recuperamos la fila, por seguridad podemos verificar que 
+la fila que hemos recuperdo es la queremos eliminar y luego la
+eliminamos.
+
+>>>x = Member.objects.all()[4]
+>>>x.nombre       # verificamos que se la correcta
+'nro_cinco'
+>>>x.delete()        # la eliminamos
+(1, {'members.Member': 1})
+
+Verifiquemos que ya no esta en la bd 
+>>>Member.objects.all().values()
+<QuerySet 
+[{'id': 2, 'nombre': 'luno', 'apellido': 'funo', 'telefono': 12345612, 'fecha_ingreso': datetime.date(2023, 4, 4)}, 
+{'id': 3, 'nombre': 'ldos', 'apellido': 'fdos', 'telefono': None, 'fecha_ingreso': None}, 
+{'id': 4, 'nombre': 'ltres', 'apellido': 'ftres', 'telefono': None, 'fecha_ingreso': None}, 
+{'id': 5, 'nombre': 'lcuatro', 'apellido': 'fcuatro', 'telefono': None, 'fecha_ingreso': None}]>
+
+Como vemos la fila con el con el nombre 'nro_cinco' ya no está
+
+# MODIFICANDO EL MODELO EXISTENTE #
+Vamos al archivo models.py que corresponda y efecturamos los cambios,
+agregando modelos o variando uno existente.
+
+Vamos a agregarle el atributo(columna) activo al Modelo Member de la app 
+members. Quedando así:
+
+C:\Users\mrojas\Documents\myworld\my_tennis_club\members\models.py
+
+from django.db import models
+
+# Create your models here.
+
+class Member(models.Model):
+    nombre  = models.CharField(max_length=255)
+    apellido  = models.CharField(max_length=255)
+    telefono = models.IntegerField(null=True)
+    fecha_ingreso = models.DateField(null=True) 
+    activo =models.BooleanField(default=True, null=True)
+
+Si no le pusiéramos null=True, habría un conflicto con las filas 
+existente, estas no tendrían un valor asignado en la columna activo.
+
+Para que los cambios persistan hacemos los makemigrations y el migrate 
+(salimos del shell con  ctrl+z o exit() si estamos en el shell)
+# Primero hacemos el makemigrations
+C:\Users\mrojas\Documents\myworld\my_tennis_club>py manage.py makemigrations members
+Migrations for 'members':
+  members\migrations\0004_member_activo.py
+    - Add field activo to member
+
+# Luego hacemos migrate
+C:\Users\mrojas\Documents\myworld\my_tennis_club>py manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, members, sessions
+Running migrations:
+  Applying members.0004_member_activo... OK
+
+C:\Users\mrojas\Documents\myworld\my_tennis_club>
+
+# Veamos como quedaron los datos y la estructura en la BD
+
+>>> from members.models import Member
+>>> Member.objects.all().values()
+<QuerySet [{'id': 2, 'nombre': 'luno', 'apellido': 'funo', 'telefono': 12345612, 'fecha_ingreso': datetime.date(2023, 4, 4), 'activo': True}, 
+{'id': 3, 'nombre': 'ldos', 'apellido': 'fdos', 'telefono': None, 'fecha_ingreso': None, 'activo': True}, 
+{'id': 4, 'nombre': 'ltres', 'apellido': 'ftres', 'telefono': None, 'fecha_ingreso': None, 'activo': True}, 
+{'id': 5, 'nombre': 'lcuatro', 'apellido': 'fcuatro', 'telefono': None, 'fecha_ingreso': None, 'activo': True}]>
+
+Como vemos ahora aparece el atributo activo, como indicamos el valor por defecto en True, ese fue el valor que tomó
+en las filas existentes, no era necesario el null=True 
+
+# DJANGO MOSTRAR DATOS - DISPLAY DATA #
+# PREPARAR TEMPLATES Y VIEWA #
+
+# Crear un Template
+luego de crear los modelos e incorporar los datos, es el momento de 
+mostrar los datos en una página web 
+
+Recordemos que los templates son documentos html por ejemplo que incluyen
+extensiones Django, que generalmente  cuardamos en la carpeta temples de la app
+
+# Creamos el primer template, all_members.html
+
+C:\Users\mrojas\Documents\myworld\my_tennis_club\members\templates\all_members.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All_Members</title>
+</head>
+<body>
+    <h1>Members</h1>
+
+    <ul>
+        {% for x in mymembers%}
+            <li> {{x.nombre}} {{ x.apellido}}  </li>
+        {% endfor %}
+    </ul>
+    
+</body>
+</html>
+
+
+
+# Ahora modificamos la vista membres en el archivo views.py de la app 
+Necesitamos que los datos estén disponibles en el Template eso se
+hace en mediante el view.py de la app.
+
+Para esto importamos el modelo member Member y se lo enviamos al template 
+
+# from django.shortcuts import render  # primera version, sin template
+from django.http import HttpResponse
+from django.template import loader      # importo la modulo  loader
+from .models import Member
+
+# Create your views here.
+def members(request):
+
+  # primer versión - sin bd  
+  # template = loader.get_template('myfirst.html')
+  # return HttpResponse(template.render())
+  # fin primer versión - sin bd
+  mymembrs = Member.objects.all().values()
+  template = loader.get_template('all_members.html')
+  context = {
+    'mymembers':mymembers,
+
+  }
+  return HttpResponse(template.render(context, request)) 
+
+'''
+la vista memebers realiza lo siguiente:
+- Crea un objeto con todos los valores del modelo Member y lo 
+  "guarda" en mymembers
+- Carga el template all_members.html en la variable template
+- Crea un objeto "context" el que contiene el objeto mymembers
+- Envía el objeto contexto al template y lo renderiza
+- Devuelve el template renderizado con el objeto context
+'''
+
+
+
+# DJANGO AGREGAR LINKS A LOS DETALLES - DJANGO ADD LINK TO DETAILS
+# PAGINA DE DETALLES #
+
+#  1° Creamos un template de detalle #
+--------------------------------------
+Vamos a CREAR  una página de detalles, primero vamos a crear 
+el template details.html.
+
+C:\Users\mrojas\Documents\myworld\my_tennis_club\members\templates\details.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+</head>
+<body>
+    <h1> {{mymember.nombre}}  {{mymember.apellido}} </h1>
+    <p>Phone: {{mymember.telefono}} </p>
+    <p>fecha_ingreso: {{mymember.fecha_ingreso}}</p>
+
+    <p>Back to <a href="/members">Members</a> </p>
+    
+</body>
+</html>
+
+# 2° Hacemos que la lista de miembros en all_members.html sea "CLICKEABLE"
+--------------------------------------------------------------------------
+
+Para ello modificamos el template all_members.html para  que quede así:
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All_Members</title>
+</head>
+<body>
+    <h1>Members</h1>
+
+    <ul>
+        {% for x in mymembers  %}
+            <li> <a href= "details/{{ x.id }}">{{x.nombre}} {{ x.apellido}}   </a>  </li>
+        {% endfor %}
+    </ul>
+    
+</body>
+</html>
+
+# 3° Creamos una VISTA que atienda las solicitudes hacia /details/
+------------------------------------------------------------------
+Creamos la vista que responde a la solicitud hacia la url /details/
+
+C:\Users\mrojas\Documents\myworld\my_tennis_club\members\views.py
+def details(request, id):               # recibe el parámetro id
+  mymember = Member.objects.get(id=id)  # trae el objeto con ese id
+  template = loader.get_template('details.html')    # carga el template
+  context = {                           # context contiene un objeto del tipo Member
+    'mymember': mymember,
+
+  }
+  return HttpResponse(template.render(context, request))
+
+
+En resumen la VISTA details realiza lo siguiente: 
+  - recibe el id como argumento
+  - obtiene la fila de la tabla de miembros con ese id
+  - carga del template details.html
+  - crea un objeto coteniendo ese miembro 
+  - Envía ese objeto al template 
+  - devuelve el html renderizado por el template
+
+# 4° Agregamos los URLs - Add URLs  #
+-------------------------------------
+Ahora necesitamos que el endpoint /details/ apunte hacia la vista correcta, 
+para hacer esto agregamos URLs 
+
+C:\Users\mrojas\Documents\myworld\my_tennis_club\members\urls.py
+from django.urls import path
+from . import views 
+
+urlpatterns = [
+    path('members/', views.members, name='members'), 
+    path('members/details/<int:id>', views.details, name='details'), 
+]
+
+Aquí no es necesario modificar el url.py del proyecto ?
+
+
+
+# Django Agregar un Template Maestro - Django Add Master Template #
+-------------------------------------------------------------------
+
+# Etiquetas extendidas - The extends Tag #
+------------------------------------------
+
+Hemos creado dos templates uno para la lista de miembros y otro para 
+los detalles de cada uno de ellos, ámbos templates tienen código html 
+en común podemos crear un template del cual ambos hereden los elementos
+comunes. Iniciamos creando el template master.html.
+
+C:\Users\mrojas\Documents\myworld\my_tennis_club\members\templates\master.html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}  </title>
+    </head>
+    <body>
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>
+
+Los bloques definidos en los elementos title y body son marcadores de 
+posición (placeholders) que seran reemplazados por el contenido de otra fuente 
+
+# Modificando los templates #
+----------------------------- 
+
+Ahora los dos templates construidos all_members.html y details.html pueden usar 
+el template master.html.
+
+Para hacerlo incluimos el template master.html con la etiqueta (tag) {% extends %} e 
+insertamos los bloques de "title" y "content"
+
+# Modifiquemos el template "all_members.html" #
+----------------------------------------------
+
+Queda así:
+
+C:\Users\mrojas\Documents\myworld\my_tennis_club\members\templates\all_members.html
+{% extends "master.html" %}
+
+{% block title %}
+    Muy tennis club - List of members
+{% endblock %}
+
+{% block content %}
+<h1>Members</h1>
+
+    <ul>
+        {% for x in mymembers  %}
+            <li> <a href= "details/{{ x.id }}"> {{x.id}}{{x.nombre}} {{ x.apellido}}   </a>  </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
+
+# Modifiquemos el template "details.html"  #
+-------------------------------------------
+
+Queda así:
+
+C:\Users\mrojas\Documents\myworld\my_tennis_club\members\templates\details.html
+{% extends "master.htl" %}
+
+{% block title %}
+    Detalles sobre {{mymember.nombre}} {{mymember.apellido}}
+{% endblock %}
+
+{% block content %}
+    <h1> {{mymember.nombre}} {{mymember.apellido}}</h1>  
+
+    <p>Telefono: {{mymember.telefono}} </p>
+
+    <p>fecha_ingreso: {{mymember.fecha_ingreso}} </p>
+    <p></p>
+{%  endblock %}
+
+
+# Agregamos una página incial  (index page or main page) #
+--------------------------------------------------------
+
+El proyecto requiere una página principal, un punto de entrada para el usuario.
+Esta página será la página por default, hasta ahora cuando alguien trataba de 
+acceder a 127.0.0.1:8000 daba un error.
+
+Comencemos creado "main.html.
+
+# Creando la página (template) Main.html #
+-------------------------------------------
+
+queda así:
+
+C:\Users\mrojas\Documents\myworld\my_tennis_club\members\templates\main.html
+{% extends "master.html" %}
+
+{% block title %}
+    My Tennis Club
+{% endblock %}
+
+{% block content %}
+    <h1> My Tennis Club </h1>
+    <h3>Members</h3>
+
+    <p>Check out all our <a href="members/">Members</a> </p>
+
+{% endblock %}
+
+Una vez creado el tempalte main.html, necesitamos crear una VIEW (controlador), 
+que resopnda a los requerimientos hacia 127.0.0.1:8000
+
+# creamos una vista llamda "main" que responda a 127.0.0.1:8000 
+
+def main(request):
+  template = loader.get_template('main.html')   # carga el template main.html
+  return HttpResponse(template.render())        # devuelve el html renderizado
+                                                #   con el tamplate
+
+
+Una vez creada la view main, necesitamos definir la url del "end pint root.
+
+# Agregamos la URL 
+Nos aseguramos que la url raíz (127.0.0.1:800), apuente a la vista correcta, 
+para ello agregamos al url a los 'urlpatterns' del archivo urls.py 
+
+
+C:\Users\mrojas\Documents\myworld\my_tennis_club\members\urls.py
+urlpatterns = [
+    path('', views.main, name='main'),
+    path('members/', views.members, name='members'), 
+    path('members/details/<int:id>', views.details, name='details'), 
+]
+
+
+Como ahora main.html será la página(template) principal, agregamos un 
+limk hacia ella en el template all_members.html 
+
+
+# Agregar views de testing # 
+----------------------------
+
+Necestiamos crear elementos que nos permitan testear nuestra aplicación sin "romper" nada.
+
+# creadno un View de testing (de la app members)
+Agregamos al views.py  de la app que vamos a testear  una view para el testing,
+
+C:\Users\mrojas\Documents\myworld\my_tennis_club\members\views.py
+def testing(request):
+  template = loader.get_template('tempalte.html')
+  context = {
+    'frutas': ['manzana', 'banana', 'cherry'],
+  }
+  return HttpResponse(template.render(context, rquest))
+
+
+# Agregamos el path de testing a las urls de la app
+
+C:\Users\mrojas\Documents\myworld\my_tennis_club\members\urls.py
+from django.urls import path
+from . import views 
+
+urlpatterns = [
+    path('', views.main, name='main'),
+    path('members/', views.members, name='members'), 
+    path('members/details/<int:id>', views.details, name='details'), 
+    path('testing/', views.testing, name='testing')
+]
+
+
+# Agregar el Tamplate asociado a la View de testing
+
+C:\Users\mrojas\Documents\myworld\my_tennis_club\members\templates\template.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>testing tempalte</title>
+</head>
+<body>
+    {% for x in frutas %}
+        <h1>{{x}} </h1>
+    {% endfor %}
+
+    <p>En views.py se puede ver la variable fruits como se muestra a continuación.</p>
+    
+</body>
+</html>
+
+Para probar esta View de testing solo tenemos que correr activar
+el entorno virtual si no lo está, activar el server:
+> py manager.py runserver
+y acceder mediante el navegador a 127.0.0.1:8000/testing/
+
+
+# Herramientas - Django Admin
+-----------------------------
+Django Admin es una herramienta que nos permite realizar un CRUD 
+de todos nuestros modelos.
+
+Para acceder a Django admin solo debemos ingresar en el navegador 
+127.0.0.1:8000/admin/members/members 
+
+
+
+
+
+
+
+
